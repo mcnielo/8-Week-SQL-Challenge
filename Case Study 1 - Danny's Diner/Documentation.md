@@ -1,5 +1,5 @@
 # SQL Challenge Case Study #1: Danny's Diner 
-<img src="[Case Study 1 - Danny's Diner/CaseStudy1.png](https://github.com/mcnielo/8-Week-SQL-Challenge/blob/20b1bfb22ef04a72abfa451168cfbff0f750808f/Case%20Study%201%20-%20Danny's%20Diner/CaseStudy1.png)" alt="Image" width="500" height="520">
+<img src="(https://github.com/mcnielo/8-Week-SQL-Challenge/blob/20b1bfb22ef04a72abfa451168cfbff0f750808f/Case%20Study%201%20-%20Danny's%20Diner/CaseStudy1.png)" alt="Image" width="500" height="520">
 
 ***
 
