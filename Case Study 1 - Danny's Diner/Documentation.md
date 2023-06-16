@@ -1,4 +1,4 @@
-# SQL Challenge Case Study #1: Danny's Diner 
+# <div align="center">SQL Challenge Case Study #1: Danny's Diner</div>
 <img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" alt="Image" width="500" height="520">
 
 ***
