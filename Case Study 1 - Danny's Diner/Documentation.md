@@ -1,5 +1,5 @@
 # SQL Challenge Case Study #1: Danny's Diner 
-<img src=""C:\Users\mcand\OneDrive\Desktop\Data Analyst Portfolio\8 Week SQL Challenge\Case Study 1 - Danny's Diner\1.png"" alt="Image" width="500" height="520">
+<img src="C:\Users\mcand\OneDrive\Desktop\Data Analyst Portfolio\8 Week SQL Challenge\Case Study 1 - Danny's Diner\1.png" alt="Image" width="500" height="520">
 
 ***
 
