@@ -33,10 +33,16 @@ This regions table contains the **region_id** and their respective **region_name
 
 
 ````sql
-
+    SELECT * FROM data_bank.regions;
 ````
 ### Results:
-
+| region_id | region_name |
+| --------- | ----------- |
+| 1         | Australia   |
+| 2         | America     |
+| 3         | Africa      |
+| 4         | Asia        |
+| 5         | Europe      |
 
 ***
 
@@ -47,10 +53,21 @@ Customers are randomly distributed across the nodes according to their region - 
 This random distribution changes frequently to reduce the risk of hackers getting into Data Bank's system and stealing customer's money and data!
 
 ````sql
-
+    SELECT * FROM data_bank.customer_nodes LIMIT 10;
 ````
 ### Results:
-
+| customer_id | region_id | node_id | start_date               | end_date                 |
+| ----------- | --------- | ------- | ------------------------ | ------------------------ |
+| 1           | 3         | 4       | 2020-01-02T00:00:00.000Z | 2020-01-03T00:00:00.000Z |
+| 2           | 3         | 5       | 2020-01-03T00:00:00.000Z | 2020-01-17T00:00:00.000Z |
+| 3           | 5         | 4       | 2020-01-27T00:00:00.000Z | 2020-02-18T00:00:00.000Z |
+| 4           | 5         | 4       | 2020-01-07T00:00:00.000Z | 2020-01-19T00:00:00.000Z |
+| 5           | 3         | 3       | 2020-01-15T00:00:00.000Z | 2020-01-23T00:00:00.000Z |
+| 6           | 1         | 1       | 2020-01-11T00:00:00.000Z | 2020-02-06T00:00:00.000Z |
+| 7           | 2         | 5       | 2020-01-20T00:00:00.000Z | 2020-02-04T00:00:00.000Z |
+| 8           | 1         | 2       | 2020-01-15T00:00:00.000Z | 2020-01-28T00:00:00.000Z |
+| 9           | 4         | 5       | 2020-01-21T00:00:00.000Z | 2020-01-25T00:00:00.000Z |
+| 10          | 3         | 4       | 2020-01-13T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
 
 ***
 
@@ -59,10 +76,21 @@ This random distribution changes frequently to reduce the risk of hackers gettin
 This table stores all customer deposits, withdrawals and purchases made using their Data Bank debit card.
 
 ````sql
-
+    SELECT * FROM data_bank.customer_transactions LIMIT 10;
 ````
 ### Results:
-
+| customer_id | txn_date                 | txn_type | txn_amount |
+| ----------- | ------------------------ | -------- | ---------- |
+| 429         | 2020-01-21T00:00:00.000Z | deposit  | 82         |
+| 155         | 2020-01-10T00:00:00.000Z | deposit  | 712        |
+| 398         | 2020-01-01T00:00:00.000Z | deposit  | 196        |
+| 255         | 2020-01-14T00:00:00.000Z | deposit  | 563        |
+| 185         | 2020-01-29T00:00:00.000Z | deposit  | 626        |
+| 309         | 2020-01-13T00:00:00.000Z | deposit  | 995        |
+| 312         | 2020-01-20T00:00:00.000Z | deposit  | 485        |
+| 376         | 2020-01-03T00:00:00.000Z | deposit  | 706        |
+| 188         | 2020-01-13T00:00:00.000Z | deposit  | 601        |
+| 138         | 2020-01-11T00:00:00.000Z | deposit  | 520        |
 
 ***
 
