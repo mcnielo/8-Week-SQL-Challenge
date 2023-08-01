@@ -120,20 +120,61 @@ In a single query, perform the following operations and generate a new table in 
 **1. What day of the week is used for each week_date value?**
 
 ````sql
-
+    SELECT DISTINCT(TO_CHAR(week_date, 'day')) AS week_day
+    FROM clean_weekly_sales;
 ````
 
 ### Answer:
-
+| week_day  |
+| --------- |
+| monday    |
 ***
 
 **2. What range of week numbers are missing from the dataset?**
 
 ````sql
-
+    WITH week_num_cte AS (
+      SELECT GENERATE_SERIES(1,52) AS week_number
+    )
+      
+    SELECT DISTINCT wn.week_number
+    FROM week_num_cte AS wn
+    LEFT JOIN clean_weekly_sales AS cw
+      ON wn.week_number = cw.week_number
+    WHERE cw.week_number IS NULL;
 ````
 
 ### Answer:
+| week_number |
+| ----------- |
+| 1           |
+| 2           |
+| 3           |
+| 4           |
+| 5           |
+| 6           |
+| 7           |
+| 8           |
+| 9           |
+| 10          |
+| 11          |
+| 12          |
+| 37          |
+| 38          |
+| 39          |
+| 40          |
+| 41          |
+| 42          |
+| 43          |
+| 44          |
+| 45          |
+| 46          |
+| 47          |
+| 48          |
+| 49          |
+| 50          |
+| 51          |
+| 52          |
 
 ***
 
