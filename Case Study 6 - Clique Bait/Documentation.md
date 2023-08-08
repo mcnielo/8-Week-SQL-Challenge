@@ -4,61 +4,126 @@
 ***
 
 ## Introduction
-Danny, the owner of Data Mart, is seeking assistance in analyzing the sales performance of his online supermarket, specializing in fresh produce. In June 2020, Data Mart implemented large-scale sustainable packaging methods for all its products from the farm to the customer. Danny wants to determine the measurable effect of this change on the company's sales performance and its various business areas. The key questions he needs help answering are:
+Step into the world of Clique Bait, an online seafood emporium that defies convention. Behind its virtual shelves stands Danny, a visionary CEO who once honed his skills in the realm of digital data analytics. Now, fueled by a desire to fuse his expertise with the depths of the seafood industry, Danny invites you to embark on a captivating case study.
 
-- What was the quantifiable impact of the sustainability changes introduced in June 2020 on Data Mart's sales performance?
-- Which platforms, regions, segments, and customer types were most affected by this change?
-- How can the company approach future updates related to sustainability to minimize any negative impact on sales?
+Within these pages, your role unfolds—to align with Danny's mission, dissect his dataset, and ingeniously devise pathways to compute funnel fallout rates for the Clique Bait online store. Join us in unraveling the intricate threads of this narrative as we explore uncharted waters and chart the course to innovative solutions.
 
 ***
 
 ## Business Problem
-Danny, the owner of Data Mart, is looking for support to analyze the sales performance of his online supermarket, which specializes in fresh produce. Data Mart made significant changes in June 2020 by implementing sustainable packaging methods for all its products from the farm to the customer. The main objectives are to determine the measurable impact of these changes on the company's sales performance, identify the platforms, regions, segments, and customer types most affected by the shift, and develop strategies for future sustainability updates that minimize any adverse effects on sales.
+Clique Bait, an online seafood store led by CEO Danny with a background in data analytics, aims to enhance the seafood industry. The challenge is to analyze the customer journey and devise innovative solutions to calculate and improve funnel fallout rates. This involves identifying where potential customers drop off during their online shopping experience and developing strategies to boost conversions. Your role is crucial in aligning data insights with seafood retail, driving growth and user satisfaction.
 
 ***
 
 ## Datasets
 
-### Table 1: weekly_sales
+### Table 1: users
 
-For this case study there is only a single table: data_mart.weekly_sales
-
-The columns are pretty self-explanatory based on the column names but here are some further details about the dataset:
-
-- Data Mart has international operations using a multi-region strategy
-- Data Mart has both, a retail and online platform in the form of a Shopify store front to serve their customers
-- Customer segment and customer_type data relates to personal age and demographics information that is shared with Data Mart
-transactions is the count of unique purchases made through Data Mart and sales is the actual dollar amount of purchases
-- Each record in the dataset is related to a specific aggregated slice of the underlying sales data rolled up into a week_date value which represents the start of the sales week.
-
+Customers who visit the Clique Bait website are tagged via their cookie_id.
 
 ````sql
-    SELECT *
-    FROM data_mart.weekly_sales
-    LIMIT 10;
+    SELECT * FROM clique_bait.users LIMIT 10;
 ````
 ### Results:
-| week_date | region | platform | segment | customer_type | transactions | sales    |
-| --------- | ------ | -------- | ------- | ------------- | ------------ | -------- |
-| 31/8/20   | ASIA   | Retail   | C3      | New           | 120631       | 3656163  |
-| 31/8/20   | ASIA   | Retail   | F1      | New           | 31574        | 996575   |
-| 31/8/20   | USA    | Retail   | null    | Guest         | 529151       | 16509610 |
-| 31/8/20   | EUROPE | Retail   | C1      | New           | 4517         | 141942   |
-| 31/8/20   | AFRICA | Retail   | C2      | New           | 58046        | 1758388  |
-| 31/8/20   | CANADA | Shopify  | F2      | Existing      | 1336         | 243878   |
-| 31/8/20   | AFRICA | Shopify  | F3      | Existing      | 2514         | 519502   |
-| 31/8/20   | ASIA   | Shopify  | F1      | Existing      | 2158         | 371417   |
-| 31/8/20   | AFRICA | Shopify  | F2      | New           | 318          | 49557    |
-| 31/8/20   | AFRICA | Retail   | C3      | New           | 111032       | 3888162  |
+| user_id | cookie_id | start_date               |
+| ------- | --------- | ------------------------ |
+| 1       | c4ca42    | 2020-02-04T00:00:00.000Z |
+| 2       | c81e72    | 2020-01-18T00:00:00.000Z |
+| 3       | eccbc8    | 2020-02-21T00:00:00.000Z |
+| 4       | a87ff6    | 2020-02-22T00:00:00.000Z |
+| 5       | e4da3b    | 2020-02-01T00:00:00.000Z |
+| 6       | 167909    | 2020-01-25T00:00:00.000Z |
+| 7       | 8f14e4    | 2020-02-09T00:00:00.000Z |
+| 8       | c9f0f8    | 2020-02-12T00:00:00.000Z |
+| 9       | 45c48c    | 2020-02-07T00:00:00.000Z |
+| 10      | d3d944    | 2020-01-23T00:00:00.000Z |
+***
+
+### Table 2: events
+
+Customer visits are logged in this events table at a cookie_id level and the event_type and page_id values can be used to join onto relevant satellite tables to obtain further information about each event.
+
+The sequence_number is used to order the events within each visit.
+
+````sql
+    SELECT * FROM clique_bait.events LIMIT 10;
+````
+### Results:
+| visit_id | cookie_id | page_id | event_type | sequence_number | event_time               |
+| -------- | --------- | ------- | ---------- | --------------- | ------------------------ |
+| ccf365   | c4ca42    | 1       | 1          | 1               | 2020-02-04T19:16:09.182Z |
+| ccf365   | c4ca42    | 2       | 1          | 2               | 2020-02-04T19:16:17.358Z |
+| ccf365   | c4ca42    | 6       | 1          | 3               | 2020-02-04T19:16:58.454Z |
+| ccf365   | c4ca42    | 9       | 1          | 4               | 2020-02-04T19:16:58.609Z |
+| ccf365   | c4ca42    | 9       | 2          | 5               | 2020-02-04T19:17:51.729Z |
+| ccf365   | c4ca42    | 10      | 1          | 6               | 2020-02-04T19:18:11.605Z |
+| ccf365   | c4ca42    | 10      | 2          | 7               | 2020-02-04T19:19:10.570Z |
+| ccf365   | c4ca42    | 11      | 1          | 8               | 2020-02-04T19:19:46.911Z |
+| ccf365   | c4ca42    | 11      | 2          | 9               | 2020-02-04T19:20:45.274Z |
+| ccf365   | c4ca42    | 12      | 1          | 10              | 2020-02-04T19:20:52.307Z |
+***
+
+### Table 3: event_identifier
+
+The event_identifier table shows the types of events which are captured by Clique Bait’s digital data systems.
+
+````sql
+    SELECT * FROM clique_bait.event_identifier;
+````
+### Results:
+| event_type | event_name    |
+| ---------- | ------------- |
+| 1          | Page View     |
+| 2          | Add to Cart   |
+| 3          | Purchase      |
+| 4          | Ad Impression |
+| 5          | Ad Click      |
+***
+
+### Table 4: campaign_identifier
+
+This table shows information for the 3 campaigns that Clique Bait has ran on their website so far in 2020.
+
+````sql
+    SELECT * FROM clique_bait.campaign_identifier;
+````
+### Results:
+| campaign_id | products | campaign_name                     | start_date               | end_date                 |
+| ----------- | -------- | --------------------------------- | ------------------------ | ------------------------ |
+| 1           | 1-3      | BOGOF - Fishing For Compliments   | 2020-01-01T00:00:00.000Z | 2020-01-14T00:00:00.000Z |
+| 2           | 4-5      | 25% Off - Living The Lux Life     | 2020-01-15T00:00:00.000Z | 2020-01-28T00:00:00.000Z |
+| 3           | 6-8      | Half Off - Treat Your Shellf(ish) | 2020-02-01T00:00:00.000Z | 2020-03-31T00:00:00.000Z |
+***
+
+### Table 5: page_hierarchy
+
+This table lists all of the pages on the Clique Bait website which are tagged and have data passing through from user interaction events.
+
+````sql
+    SELECT * FROM clique_bait.page_hierarchy LIMIT 10;
+````
+### Results:
+| page_id | page_name      | product_category | product_id |
+| ------- | -------------- | ---------------- | ---------- |
+| 1       | Home Page      |                  |            |
+| 2       | All Products   |                  |            |
+| 3       | Salmon         | Fish             | 1          |
+| 4       | Kingfish       | Fish             | 2          |
+| 5       | Tuna           | Fish             | 3          |
+| 6       | Russian Caviar | Luxury           | 4          |
+| 7       | Black Truffle  | Luxury           | 5          |
+| 8       | Abalone        | Shellfish        | 6          |
+| 9       | Lobster        | Shellfish        | 7          |
+| 10      | Crab           | Shellfish        | 8          |
 ***
 
 ## Case Study Questions
 
 ***
 
-## Data Cleansing Steps
+# Data Cleansing Steps
 
-In a single query, perform the following operations and generate a new table in the data_mart schema named clean_weekly_sales:
+In a single query, pe#rform the following operations and generate a new table in the data_mart schema named clean_weekly_sales:
 
 - Convert the week_date to a DATE format
 - Add a week_number as the second column for each week_date value, for example any value from the 1st of January to 7th of January will be 1, 8th to 14th will be 2 etc
